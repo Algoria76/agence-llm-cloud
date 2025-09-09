@@ -1,0 +1,14 @@
+{
+  "validate": [
+    "Valider", "C’est bon", "On continue", "Passe à la suite",
+    "Ok, ça me va", "Go", "Oui, je confirme", "On avance"
+  ],
+  "adjust": [
+    "Modifier", "Changer", "Ajuster", "Corriger",
+    "Ce n’est pas bon", "Recommence"
+  ],
+  "cancel": [
+    "Annuler", "Stop", "On arrête", "Non, pas encore",
+    "Attends", "Reviens en arrière"
+  ]
+}
