@@ -1,0 +1,23 @@
+archetypes:
+  - id: vitrine-basic
+    label: Site vitrine
+    engine: weweb
+    params:
+      pages: [home, services, contact]
+      lead_capture: true
+
+  - id: portal-client
+    label: Portail client
+    engine: appsmith
+    db: postgres
+    params:
+      roles: [admin, manager, client]
+      modules: [tickets, documents, calendrier]
+
+  - id: chatbot-rag
+    label: Chatbot RAG
+    engine: flowise
+    vectorstore: postgres
+    params:
+      upload: [pdf, docx]
+      memory: true
