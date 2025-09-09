@@ -1,0 +1,66 @@
+services:
+  - name: flowise
+    type: web
+    plan: starter
+    env: docker
+    dockerfilePath: ./flowise/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: DATABASE_PATH
+        value: /root/.flowise
+      - key: FLOWISE_USERNAME
+        sync: false
+      - key: FLOWISE_PASSWORD
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: INTENTS_FILE
+        value: /root/.flowise/intents.fr.json
+      - key: CATALOG_FILE
+        value: /root/.flowise/catalog.yaml
+    disk:
+      name: flowise-data
+      mountPath: /root/.flowise
+      sizeGB: 5
+    healthCheckPath: /
+
+  - name: n8n
+    type: web
+    plan: starter
+    env: docker
+    dockerfilePath: ./n8n/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: N8N_PORT
+        value: 5678
+      - key: N8N_HOST
+        value: 0.0.0.0
+      - key: WEBHOOK_URL
+        value: https://CHANGE-ME.onrender.com/
+      - key: GENERIC_TIMEZONE
+        value: Europe/Paris
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        sync: false
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false
+      - key: N8N_ENCRYPTION_KEY
+        sync: false
+      - key: N8N_DATABASE_TYPE
+        value: postgresdb
+      - key: DB_POSTGRESDB_CONNECTION_STRING
+        fromDatabase:
+          name: agence-postgres
+          property: connectionString
+    disk:
+      name: n8n-data
+      mountPath: /home/node/.n8n
+      sizeGB: 5
+    healthCheckPath: /
+
+databases:
+  - name: agence-postgres
+    plan: starter
